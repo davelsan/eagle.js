@@ -11,9 +11,9 @@ export default {
   name: 'eg-image-slide',
   mixins: [Slide],
   props: {
-    url: {default: 'https://i.imgur.com/P7iyH.png'},
-    enter: {default: null},
-    leave: {default: null}
+    url: { default: 'https://i.imgur.com/P7iyH.png' },
+    enter: { default: null },
+    leave: { default: null }
   },
   computed: {
     style: function () {

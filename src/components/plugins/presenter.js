@@ -27,7 +27,7 @@ const click = slideshow => evt => {
 
 const message = slideshow => evt => {
   if (evt.origin !== window.location.origin) {
-    return void 0
+    return
   }
   try {
     const data = JSON.parse(evt.data)
@@ -38,7 +38,7 @@ const message = slideshow => evt => {
         break
       case 'getCurrentSlide':
         postMessage(slideshow, `{
-          "method": "setCurrentSlide", 
+          "method": "setCurrentSlide",
           "slideIndex": ${slideshow.currentSlideIndex},
           "step": ${slideshow.step}
           }`)

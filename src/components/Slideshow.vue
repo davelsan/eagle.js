@@ -7,18 +7,18 @@ const NEXT = 'next'
 
 export default {
   props: {
-    firstSlide: {default: 1},
-    startStep: {default: 1},
-    lastSlide: {default: null},
-    embedded: {default: false},
-    inserted: {default: false},
-    keyboardNavigation: {default: true},
-    mouseNavigation: {default: true},
-    onStartExit: {default: () => function () { if (this.$router) this.$router.push('/') }},
-    onEndExit: {default: () => function () { if (this.$router) this.$router.push('/') }},
-    skip: {default: false},
-    backBySlide: {default: false},
-    repeat: {default: false}
+    firstSlide: { default: 1 },
+    startStep: { default: 1 },
+    lastSlide: { default: null },
+    embedded: { default: false },
+    inserted: { default: false },
+    keyboardNavigation: { default: true },
+    mouseNavigation: { default: true },
+    onStartExit: { default: () => function () { if (this.$router) this.$router.push('/') } },
+    onEndExit: { default: () => function () { if (this.$router) this.$router.push('/') } },
+    skip: { default: false },
+    backBySlide: { default: false },
+    repeat: { default: false }
   },
   data: function () {
     return {
@@ -169,7 +169,7 @@ export default {
       }, 16)()
     },
     handleClick: function (evt) {
-      var noHref = evt.target['href'] === undefined
+      var noHref = evt.target.href === undefined
       if (this.mouseNavigation && this.currentSlide.mouseNavigation && noHref && !evt.altKey) {
         var clientX = evt.clientX != null ? evt.clientX : evt.touches[0].clientX
         if (clientX < (0.25 * document.documentElement.clientWidth)) {
@@ -206,7 +206,7 @@ export default {
     afterMounted: function () {
       // useful in some instances
     },
-    findSlides: function ({resetIndex = true} = {}) {
+    findSlides: function ({ resetIndex = true } = {}) {
       var self = this
       var i = 0
       self.slides = []

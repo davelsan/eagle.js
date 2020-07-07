@@ -9,16 +9,16 @@ eg-transition(:enter='enterTransition', :leave='leaveTransition')
 export default {
   name: 'slide',
   props: {
-    skip: {default: false},
-    enter: {default: null},
-    enterPrev: {default: null},
-    enterNext: {default: null},
-    leave: {default: null},
-    leavePrev: {default: null},
-    leaveNext: {default: null},
-    steps: {default: 1},
-    mouseNavigation: {default: true},
-    keyboardNavigation: {default: true}
+    skip: { default: false },
+    enter: { default: null },
+    enterPrev: { default: null },
+    enterNext: { default: null },
+    leave: { default: null },
+    leavePrev: { default: null },
+    leaveNext: { default: null },
+    steps: { default: 1 },
+    mouseNavigation: { default: true },
+    keyboardNavigation: { default: true }
   },
   data: function () {
     return {

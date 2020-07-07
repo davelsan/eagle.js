@@ -20,6 +20,6 @@ Vue.component(Slide.name, Slide)
 Vue.component(Transition.name, Transition)
 
 export default {
-  mixins: [ Slideshow ]
+  mixins: [Slideshow]
 }
 </script>

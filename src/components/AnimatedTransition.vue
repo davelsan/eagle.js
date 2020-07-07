@@ -7,8 +7,8 @@ transition(:enter-active-class="enter ? 'animated ' + enter : ''",
 export default {
   name: 'eg-transition',
   props: {
-    enter: {default: null},
-    leave: {default: null}
+    enter: { default: null },
+    leave: { default: null }
   }
 }
 </script>
