@@ -9,10 +9,10 @@ export default {
   isWidget: true,
   name: 'eg-code-comment',
   props: {
-    enter: {default: null},
-    leave: {default: null},
-    active: {default: true},
-    arrow: {default: true}
+    enter: { default: null },
+    leave: { default: null },
+    active: { default: true },
+    arrow: { default: true }
   }
 }
 </script>

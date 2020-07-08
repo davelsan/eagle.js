@@ -3,33 +3,52 @@ const path = require('path');
 module.exports = async ({ config }) => {
   // Overwrite the default storybook webpack config for same tests loaders are applied serially
   config.module.rules = [
+
+    // *.css | *.scss
     {
-      test: /\.vue$/,
-      loader: 'vue-loader'
+      test: /\.(scss|css)$/,
+      include: path.resolve(__dirname, '../'),
+      use: [
+        {
+          loader: 'vue-style-loader',
+        },
+        {
+          loader: 'css-loader',
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            additionalData: '$sass-env: ' + process.env.NODE_ENV + ';',
+          }
+        }
+      ],
     },
+
+    // *.js
     {
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/
     },
-    {
-      test: /\.(scss|css)$/,
-      use: ['vue-style-loader', 'css-loader', {
-        loader: 'sass-loader',
-        options: {
-          data: '$sass-env: development;'
-        }
-      }],
-      include: path.resolve(__dirname, '../')
-    },
+
+    // *.pug
     {
       test: /\.pug$/,
       loader: 'pug-plain-loader'
     },
+
+    // *.png | *.jpg | *.gif
     {
       test: /\.(png|jpg|gif)$/,
-      use: ['file-loader']
-    }
+      loader: 'file-loader'
+    },
+
+    // *.vue
+    {
+      test: /\.vue$/,
+      loader: 'vue-loader'
+    },
+
   ];
 
   return config;

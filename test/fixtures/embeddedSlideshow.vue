@@ -12,6 +12,6 @@
 import slideshow from '@/components/Slideshow'
 
 export default {
-  mixins: [ slideshow ]
+  mixins: [slideshow]
 }
-</script> 
+</script>

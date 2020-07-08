@@ -15,8 +15,8 @@ export default {
   isWidget: true,
   name: 'eg-toggle',
   props: {
-    value: {default: true},
-    fontsize: {default: '0.8em'}
+    value: { default: true },
+    fontsize: { default: '0.8em' }
   },
   data: function () {
     return {

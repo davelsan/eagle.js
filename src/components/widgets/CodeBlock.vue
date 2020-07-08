@@ -20,10 +20,10 @@ export default {
   isWidget: true,
   name: 'eg-code-block',
   props: {
-    id: {default: () => randId()},
-    id2: {default: () => randId()},
-    id3: {default: () => randId()},
-    lang: {default: null}
+    id: { default: () => randId() },
+    id2: { default: () => randId() },
+    id3: { default: () => randId() },
+    lang: { default: null }
   },
   mounted: function () {
     this.update()

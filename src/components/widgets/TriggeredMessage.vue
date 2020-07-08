@@ -8,11 +8,11 @@ export default {
   isWidget: true,
   name: 'eg-triggered-message',
   props: {
-    enter: {default: 'slideInLeft'},
-    leave: {default: 'slideOutLeft'},
-    trigger: {default: false},
-    position: {default: 'left top'},
-    duration: {default: 3}
+    enter: { default: 'slideInLeft' },
+    leave: { default: 'slideOutLeft' },
+    trigger: { default: false },
+    position: { default: 'left top' },
+    duration: { default: 3 }
   },
   data: function () {
     return {

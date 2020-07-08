@@ -10,7 +10,7 @@ export default {
   isWidget: true,
   name: 'eg-timer',
   props: {
-    key: {default: 'T'}
+    key: { default: 'T' }
   },
   data: function () {
     return {

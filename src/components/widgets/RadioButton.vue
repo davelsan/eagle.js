@@ -11,9 +11,9 @@ export default {
   isWidget: true,
   name: 'eg-radio-button',
   props: {
-    value: {default: null},
-    label: {default: null},
-    fontsize: {default: '0.7em'}
+    value: { default: null },
+    label: { default: null },
+    fontsize: { default: '0.7em' }
   },
   methods: {
     select: function () {

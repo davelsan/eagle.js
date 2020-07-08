@@ -1,5 +1,5 @@
-const babel = require('rollup-plugin-babel')
-const commonjs = require('rollup-plugin-commonjs')
+const { babel } = require('@rollup/plugin-babel')
+const commonjs = require('@rollup/plugin-commonjs')
 const vue = require('rollup-plugin-vue')
 const pkg = require('../package.json')
 
@@ -15,7 +15,7 @@ module.exports = {
   input: 'src/main.js',
   output: [
     { file: 'dist/eagle.cjs.js', format: 'cjs', banner, exports: 'named' },
-		{ file: 'dist/eagle.es.js', format: 'es', banner }
+    { file: 'dist/eagle.es.js', format: 'es', banner }
   ],
   external: [
     'vue',
@@ -25,7 +25,7 @@ module.exports = {
     commonjs(),
     vue(),
     babel({
-      runtimeHelpers: true
+      babelHelpers: 'runtime'
     })
   ]
 }
