@@ -1,17 +1,25 @@
-<template lang='pug'>
-.eg-modal
-  .content
-    slot
+<template>
+  <div class="eg-modal">
+    <div class="content">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <script>
+
 export default {
+
   isWidget: true,
-  name: 'eg-modal'
+
+  name: 'EgModal'
+
 }
+
 </script>
 
 <style>
+
 .eg-modal {
   position: absolute;
   top: 0;
@@ -19,4 +27,5 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 </style>

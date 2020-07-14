@@ -1,21 +1,49 @@
-
-<template lang='pug'>
-eg-transition(:enter='enter', :leave='leave')
-  .eg-slide.image-slide(v-if='active', :style="style")
+<template>
+  <eg-transition
+    :enter="enter"
+    :leave="leave"
+  >
+    <div
+      v-if="active"
+      class="eg-slide image-slide"
+      :style="style"
+    />
+  </eg-transition>
 </template>
 
 <script>
+
 import Slide from '../Slide.vue'
+
 export default {
+
   isWidget: true,
-  name: 'eg-image-slide',
+
+  name: 'EgImageSlide',
+
   mixins: [Slide],
+
   props: {
-    url: { default: 'https://i.imgur.com/P7iyH.png' },
-    enter: { default: null },
-    leave: { default: null }
+
+    url: {
+      type: String,
+      default: 'https://i.imgur.com/P7iyH.png'
+    },
+
+    enter: {
+      type: String,
+      default: ''
+    },
+
+    leave: {
+      type: String,
+      default: ''
+    }
+
   },
+
   computed: {
+
     style: function () {
       return {
         'background-image': 'url(' + this.url + ')',
@@ -23,6 +51,8 @@ export default {
         'background-size': 'cover'
       }
     }
+
   }
+
 }
 </script>

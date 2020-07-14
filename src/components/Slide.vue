@@ -1,25 +1,78 @@
-<template lang='pug'>
-eg-transition(:enter='enterTransition', :leave='leaveTransition')
-  .eg-slide(v-if='active')
-    .eg-slide-content
-      slot
+<template>
+  <eg-transition
+    :enter="enterTransition"
+    :leave="leaveTransition"
+  >
+    <div
+      v-if="active"
+      class="eg-slide"
+    >
+      <div class="eg-slide-content">
+        <slot />
+      </div>
+    </div>
+  </eg-transition>
 </template>
 
 <script>
 export default {
-  name: 'slide',
+
+  name: 'Slide',
+
   props: {
-    skip: { default: false },
-    enter: { default: null },
-    enterPrev: { default: null },
-    enterNext: { default: null },
-    leave: { default: null },
-    leavePrev: { default: null },
-    leaveNext: { default: null },
-    steps: { default: 1 },
-    mouseNavigation: { default: true },
-    keyboardNavigation: { default: true }
+
+    skip: {
+      type: Boolean,
+      default: false
+    },
+
+    enter: {
+      type: String,
+      default: null
+    },
+
+    enterPrev: {
+      type: String,
+      default: null
+    },
+
+    enterNext: {
+      type: String,
+      default: null
+    },
+
+    leave: {
+      type: String,
+      default: null
+    },
+
+    leavePrev: {
+      type: String,
+      default: null
+    },
+
+    leaveNext: {
+      type: String,
+      default: null
+    },
+
+    steps: {
+      type: Number,
+      default: 1
+    },
+
+    mouseNavigation: {
+      type: Boolean,
+      default: true
+    },
+
+    keyboardNavigation: {
+      type: Boolean,
+      default: true
+    }
+
   },
+
   data: function () {
     return {
       step: 1,
@@ -39,34 +92,25 @@ export default {
       }
     }
   },
+
   computed: {
+
     enterTransition: function () {
       return this.transitions[this.direction].enter
     },
+
     leaveTransition: function () {
       return this.transitions[this.direction].leave
     }
+
   },
-  methods: {
-    nextStep: function () {
-      if (this.step === this.steps) {
-        this.$parent.nextSlide()
-      } else {
-        this.step++
-      }
-    },
-    previousStep: function () {
-      if (this.step === 1) {
-        this.$parent.previousSlide()
-      } else {
-        this.step--
-      }
-    }
-  },
+
   watch: {
+
     step: function (val) {
       this.$parent.step = val
     },
+
     active: function (val) {
       var self = this
       if (val) {
@@ -78,6 +122,27 @@ export default {
         clearInterval(this.timerUpdater)
       }
     }
+
+  },
+
+  methods: {
+
+    nextStep: function () {
+      if (this.step === this.steps) {
+        this.$parent.nextSlide()
+      } else {
+        this.step++
+      }
+    },
+
+    previousStep: function () {
+      if (this.step === 1) {
+        this.$parent.previousSlide()
+      } else {
+        this.step--
+      }
+    }
+
   }
 }
 </script>

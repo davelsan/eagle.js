@@ -1,12 +1,31 @@
-<template lang='pug'>
-.eg-code-block.container
-  .box.hljs.code-box(:id='id')
-    pre
-      code(:class="lang ? lang : ''", :id='id3')
-  .box.comments-box
-    pre
-      code(:id='id2')
-        slot
+<template>
+  <div class="eg-code-block.container">
+    <div
+      :id="id"
+      class="box hljs code-box"
+    >
+      <pre>
+
+        <code
+          :id="id3"
+          :class="lang"
+        />
+
+      </pre>
+    </div>
+
+    <div class="box comments-box">
+      <pre>
+
+        <code :id="id2">
+
+          <slot />
+
+        </code>
+
+      </pre>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,21 +36,45 @@ function randId () {
 }
 
 export default {
+
   isWidget: true,
-  name: 'eg-code-block',
+
+  name: 'EgCodeBlock',
+
   props: {
-    id: { default: () => randId() },
-    id2: { default: () => randId() },
-    id3: { default: () => randId() },
-    lang: { default: null }
+
+    id: {
+      type: Function,
+      default: () => randId()
+    },
+
+    id2: {
+      type: Function,
+      default: () => randId()
+    },
+
+    id3: {
+      type: Function,
+      default: () => randId()
+    },
+
+    lang: {
+      type: String,
+      default: ''
+    }
+
   },
+
   mounted: function () {
     this.update()
   },
+
   updated: function () {
     this.update()
   },
+
   methods: {
+
     update: function () {
       var codeBlock = document.getElementById(this.id)
       var commentsContent = document.getElementById(this.id2)
@@ -41,11 +84,16 @@ export default {
         Options.hljs.highlightBlock(codeBlock)
       }
     }
+
   }
+
 }
 </script>
+
 <style lang='scss' scoped>
+
 .eg-code-block {
+
   &.container {
     position: relative;
     width: 100%;
@@ -67,5 +115,6 @@ export default {
   .eg-code-comment {
     z-index: 10 !important;
   }
+
 }
 </style>

@@ -98,7 +98,7 @@ storiesOf('Slideshow', module)
   .add('embedded slideshow, slideshow within slide', () =>
     render(`
       <slide>
-        <nested-slideshow :embedded='true' />
+        <nested-slideshow :style="{ height: '24em' }" :embedded='true' />
       </slide>
     `)
   )

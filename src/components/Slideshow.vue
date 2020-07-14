@@ -6,20 +6,71 @@ const PREV = 'prev'
 const NEXT = 'next'
 
 export default {
+
   props: {
-    firstSlide: { default: 1 },
-    startStep: { default: 1 },
-    lastSlide: { default: null },
-    embedded: { default: false },
-    inserted: { default: false },
-    keyboardNavigation: { default: true },
-    mouseNavigation: { default: true },
-    onStartExit: { default: () => function () { if (this.$router) this.$router.push('/') } },
-    onEndExit: { default: () => function () { if (this.$router) this.$router.push('/') } },
-    skip: { default: false },
-    backBySlide: { default: false },
-    repeat: { default: false }
+
+    firstSlide: {
+      type: Number,
+      default: 1
+    },
+
+    startStep: {
+      type: Number,
+      default: 1
+    },
+
+    lastSlide: {
+      type: Number,
+      default: null
+    },
+
+    embedded: {
+      type: Boolean,
+      default: false
+    },
+
+    inserted: {
+      type: Boolean,
+      default: false
+    },
+
+    keyboardNavigation: {
+      type: Boolean,
+      default: true
+    },
+
+    mouseNavigation: {
+      type: Boolean,
+      default: true
+    },
+
+    onStartExit: {
+      type: Function,
+      default: () => function () { if (this.$router) this.$router.push('/') }
+    },
+
+    onEndExit: {
+      type: Function,
+      default: () => function () { if (this.$router) this.$router.push('/') }
+    },
+
+    skip: {
+      type: Boolean,
+      default: false
+    },
+
+    backBySlide: {
+      type: Boolean,
+      default: false
+    },
+
+    repeat: {
+      type: Boolean,
+      default: false
+    }
+
   },
+
   data: function () {
     return {
       currentSlideIndex: 1,
@@ -31,11 +82,56 @@ export default {
       active: true
     }
   },
+
   computed: {
+
     computedActive: function () {
       return this.slides.some(function (slide) { return slide.active })
     }
+
   },
+
+  watch: {
+
+    currentSlide: function (newSlide, oldSlide) {
+      if (oldSlide) {
+        oldSlide.active = false
+        if ((oldSlide.$parent !== newSlide.$parent) &&
+            (oldSlide.$parent !== this)) {
+          oldSlide.$parent.active = false
+        }
+      }
+      this.slideTimer = 0
+      if (this.backBySlide || newSlide.direction === NEXT) {
+        this.step = 1
+        newSlide.step = 1
+        newSlide.$parent.step = 1
+      } else if (newSlide.direction === PREV) {
+        this.step = newSlide.steps
+        newSlide.step = newSlide.steps
+        newSlide.$parent.step = newSlide.steps
+      }
+      newSlide.active = true
+      newSlide.$parent.active = true
+    },
+
+    currentSlideIndex: function (index) {
+      this.currentSlide = this.slides[index - 1]
+    },
+
+    step: function (val) {
+      if (this.currentSlide) {
+        this.currentSlide.step = val
+        this.currentSlide.$parent.step = val
+      }
+    },
+
+    active: 'updateSlideshowVisibility',
+
+    computedActive: 'updateSlideshowVisibility'
+
+  },
+
   mounted: function () {
     // LIST ALL SLIDES
     this.isSlideshow = true
@@ -86,6 +182,7 @@ export default {
     this.registerPlugins()
     this.afterMounted()
   },
+
   beforeDestroy: function () {
     window.removeEventListener('keydown', this.handleKeydown)
     window.removeEventListener('click', this.handleClick)
@@ -94,13 +191,16 @@ export default {
     clearInterval(this.timerUpdater)
     this.unregisterPlugins()
   },
+
   methods: {
+
     changeDirection: function (direction) {
       this.slides.forEach(function (slide) {
         slide.direction = direction
       })
       this.$root.direction = direction
     },
+
     nextStep: function () {
       this.changeDirection(NEXT)
       var self = this
@@ -112,6 +212,7 @@ export default {
         }
       })
     },
+
     previousStep: function () {
       this.changeDirection(PREV)
       var self = this
@@ -123,6 +224,7 @@ export default {
         }
       })
     },
+
     nextSlide: function () {
       this.changeDirection(NEXT)
       var nextSlideIndex = this.currentSlideIndex + 1
@@ -139,6 +241,7 @@ export default {
         this.onEndExit()
       }
     },
+
     previousSlide: function () {
       this.changeDirection(PREV)
       var previousSlideIndex = this.currentSlideIndex - 1
@@ -153,6 +256,7 @@ export default {
         this.onStartExit()
       }
     },
+
     handleResize: function () {
       var self = this
       throttle(function () {
@@ -168,6 +272,7 @@ export default {
         self.$el.style.fontSize = (0.04 * Math.min(height, width)) + 'px'
       }, 16)()
     },
+
     handleClick: function (evt) {
       var noHref = evt.target.href === undefined
       if (this.mouseNavigation && this.currentSlide.mouseNavigation && noHref && !evt.altKey) {
@@ -181,6 +286,7 @@ export default {
         }
       }
     },
+
     handleWheel: throttle(function (evt) {
       if (this.mouseNavigation && this.currentSlide.mouseNavigation) {
         evt.preventDefault()
@@ -191,6 +297,7 @@ export default {
         }
       }
     }, 1000),
+
     handleKeydown: function (evt) {
       if (this.keyboardNavigation &&
           (this.currentSlide.keyboardNavigation || evt.ctrlKey || evt.metaKey)) {
@@ -203,9 +310,11 @@ export default {
         }
       }
     },
+
     afterMounted: function () {
       // useful in some instances
     },
+
     findSlides: function ({ resetIndex = true } = {}) {
       var self = this
       var i = 0
@@ -234,6 +343,7 @@ export default {
         self.step = self.startStep
       }
     },
+
     updateSlideshowVisibility: function (val) {
       if (val) {
         this.$el.style.visibility = 'visible'
@@ -241,50 +351,19 @@ export default {
         this.$el.style.visibility = 'hidden'
       }
     },
+
     registerPlugins: function () {
       Options.plugins.forEach(plugin => {
         plugin[0].init(this, plugin[1])
       })
     },
+
     unregisterPlugins: function () {
       Options.plugins.forEach(plugin => {
         plugin[0].destroy(this, plugin[1])
       })
     }
-  },
-  watch: {
-    currentSlide: function (newSlide, oldSlide) {
-      if (oldSlide) {
-        oldSlide.active = false
-        if ((oldSlide.$parent !== newSlide.$parent) &&
-            (oldSlide.$parent !== this)) {
-          oldSlide.$parent.active = false
-        }
-      }
-      this.slideTimer = 0
-      if (this.backBySlide || newSlide.direction === NEXT) {
-        this.step = 1
-        newSlide.step = 1
-        newSlide.$parent.step = 1
-      } else if (newSlide.direction === PREV) {
-        this.step = newSlide.steps
-        newSlide.step = newSlide.steps
-        newSlide.$parent.step = newSlide.steps
-      }
-      newSlide.active = true
-      newSlide.$parent.active = true
-    },
-    currentSlideIndex: function (index) {
-      this.currentSlide = this.slides[index - 1]
-    },
-    step: function (val) {
-      if (this.currentSlide) {
-        this.currentSlide.step = val
-        this.currentSlide.$parent.step = val
-      }
-    },
-    active: 'updateSlideshowVisibility',
-    computedActive: 'updateSlideshowVisibility'
+
   }
 
 }

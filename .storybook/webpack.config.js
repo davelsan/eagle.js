@@ -31,12 +31,6 @@ module.exports = async ({ config }) => {
       exclude: /node_modules/
     },
 
-    // *.pug
-    {
-      test: /\.pug$/,
-      loader: 'pug-plain-loader'
-    },
-
     // *.png | *.jpg | *.gif
     {
       test: /\.(png|jpg|gif)$/,
