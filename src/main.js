@@ -40,8 +40,8 @@ export {
 
 export default {
   install (Vue) {
-    Vue.component('slide', Slide)
-    Vue.component('eg-transition', Transition)
+    Vue.component('Slide', Slide)
+    Vue.component('EgTransition', Transition)
   },
   use (extension, config) {
     if (extension.isPlugin) {
