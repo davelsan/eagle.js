@@ -1,19 +1,54 @@
-<template lang='pug'>
-eg-transition(:enter='enter', :leave='leave')
-  .eg-triggered-message(v-if='active', :style='style')
-    slot
+<template>
+  <eg-transition
+    :enter="enter"
+    :leave="leave"
+  >
+    <div
+      v-if="active"
+      class="eg-triggered-message"
+      :style="style"
+    >
+      <slot />
+    </div>
+  </eg-transition>
 </template>
 <script>
+
 export default {
+
   isWidget: true,
-  name: 'eg-triggered-message',
+
+  name: 'EgTriggeredMessage',
+
   props: {
-    enter: { default: 'slideInLeft' },
-    leave: { default: 'slideOutLeft' },
-    trigger: { default: false },
-    position: { default: 'left top' },
-    duration: { default: 3 }
+
+    enter: {
+      type: String,
+      default: 'slideInLeft'
+    },
+
+    leave: {
+      type: String,
+      default: 'slideOutLeft'
+    },
+
+    trigger: {
+      type: Boolean,
+      default: false
+    },
+
+    position: {
+      type: String,
+      default: 'left top'
+    },
+
+    duration: {
+      type: Number,
+      default: 3
+    }
+
   },
+
   data: function () {
     return {
       active: false,
@@ -26,7 +61,9 @@ export default {
       }
     }
   },
+
   watch: {
+
     trigger: function (val, oldVal) {
       if (!oldVal && val) {
         this.active = true
@@ -39,6 +76,9 @@ export default {
         clearTimeout(this.timeout)
       }
     }
+
   }
+
 }
+
 </script>

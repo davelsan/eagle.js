@@ -1,30 +1,65 @@
-<template lang='pug'>
-.eg-radio
-  .radiobutton(:style="{'font-size': fontsize}", @click='select')
-    .radio
-    .radiodot(:class="{checked: value === label}")
-  slot
+<template>
+  <div class="eg-radio">
+    <div
+      class="radiobutton"
+      :style="{
+        'font-size': fontsize
+      }"
+      @click="select"
+    >
+      <div class="radio" />
+      <div
+        class="radiodot"
+        :class="{
+          checked: value === label
+        }"
+      />
+    </div>
+    <slot />
+  </div>
 </template>
 
 <script>
 export default {
+
   isWidget: true,
-  name: 'eg-radio-button',
+
+  name: 'EgRadioButton',
+
   props: {
-    value: { default: null },
-    label: { default: null },
-    fontsize: { default: '0.7em' }
+
+    value: {
+      type: String,
+      default: ''
+    },
+
+    label: {
+      type: String,
+      default: ''
+    },
+
+    fontsize: {
+      type: String,
+      default: '0.7em'
+    }
+
   },
+
   methods: {
+
     select: function () {
       this.$emit('input', this.label)
     }
+
   }
 }
+
 </script>
 
 <style lang="scss" scoped>
+
 .eg-radio {
+
   p {
     display: inline;
   }
@@ -69,5 +104,7 @@ export default {
     left: 0.05em;
     bottom: 0.05em;
   }
+
 }
+
 </style>

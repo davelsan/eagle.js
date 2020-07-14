@@ -1,43 +1,88 @@
-<template lang='pug'>
-.eg-switch
-  .switch(:style="{'font-size': fontsize}", @click='toggle')
+<template>
+  <div class="eg-switch">
+    <div
+      class="switch"
+      :style="{
+        'font-size': fontsize
+      }"
+      @click="toggle"
+    >
+      <input
+        type="checkbox"
+        :checked="checked"
+      >
+      <div
+        class="slider"
+        :class="{
+          checked: checked
+        }"
+      />
 
-    input(type='checkbox', :checked='checked')
-    .slider(:class="{checked: checked}")
-    .sliderdot(:class="{checked: checked}")
-
-  span(:class="{unchecked: !checked}")
-    slot
+      <div
+        :class="{
+          checked: checked
+        }"
+      />
+    </div>
+    <span
+      :class="{
+        unchecked: !checked
+      }"
+    >
+      <slot />
+    </span>
+  </div>
 </template>
 
 <script>
 export default {
+
   isWidget: true,
-  name: 'eg-toggle',
+
+  name: 'EgToggle',
+
   props: {
-    value: { default: true },
-    fontsize: { default: '0.8em' }
+
+    value: {
+      type: Boolean,
+      default: true
+    },
+
+    fontsize: {
+      type: String,
+      default: '0.8em'
+    }
+
   },
+
   data: function () {
     return {
       checked: this.value
     }
   },
-  methods: {
-    toggle: function () {
-      this.checked = !this.checked
-    }
-  },
+
   watch: {
     checked: function (val) {
       this.$emit('input', val)
     }
+  },
+
+  methods: {
+
+    toggle: function () {
+      this.checked = !this.checked
+    }
+
   }
+
 }
+
 </script>
+
 <style lang="scss" scoped>
 
 .eg-switch {
+
   p {
     display: inline;
   }
@@ -88,4 +133,5 @@ export default {
 
   }
 }
+
 </style>

@@ -1,14 +1,28 @@
-<template lang='pug'>
-transition(:enter-active-class="enter ? 'animated ' + enter : ''",
-           :leave-active-class="leave ? 'animated ' + leave : ''")
-  slot
+<template>
+  <transition
+    :enter-active-class="enter ? 'animated ' + enter : ''"
+    :leave-active-class="leave ? 'animated ' + leave : ''"
+  >
+    <slot />
+  </transition>
 </template>
+
 <script>
 export default {
-  name: 'eg-transition',
+
+  name: 'EgTransition',
+
   props: {
-    enter: { default: null },
-    leave: { default: null }
+
+    enter: {
+      type: String,
+      default: ''
+    },
+
+    leave: {
+      type: String,
+      default: ''
+    }
   }
 }
 </script>
